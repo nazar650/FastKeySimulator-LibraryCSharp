@@ -1,4 +1,4 @@
-# FastKeySimulator V 1.2.1
+# FastKeySimulator V 1.2.1(Doesn't Work v 1.2.1)
 The **FastKeySimulator library** for C# allows programmatic control of the keyboard and mouse in Windows via the WinAPI. It uses the low-level **SendInput API**, which emulates physical key presses, mouse clicks, and cursor movements.
 Key Features
 
