@@ -35,7 +35,7 @@ internal class Program
         // Press a single key
         await fast.KeyBoardClick(0,ScanCode.W);
         // Press a key combination (0,RShift + w)
-        await fast.KeyBoardClick(0,ScanCode.RShift,ScanCode.W");
+        await fast.KeyBoardClick(0,ScanCode.RShift,ScanCode.W);
         // Press multiple keys (0,Alt + RShift)
         await fast.KeyBoardClick(0,ScanCode.Alt,ScanCode.RShift);
     }
