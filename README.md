@@ -1,4 +1,4 @@
-# FastKeySimulator V 1.2.1(Doesn't Works v 1.2.1)
+# FastKeySimulator V 1.2.2
 The **FastKeySimulator library** for C# allows programmatic control of the keyboard and mouse in Windows via the WinAPI. It uses the low-level **SendInput API**, which emulates physical key presses, mouse clicks, and cursor movements.
 Key Features
 
@@ -22,7 +22,7 @@ The **FastKeySim** class allows you to easily simulate keyboard and mouse input 
 ### How to use **KeyBoardClick(int timeDelay,params ushort[] scanCode)**
 - **timeDelay** – Delay in milliseconds before releasing the key.
   - If **timeDelay** < 6 a single key/key combination is pressed.
-  - If **timeDelay** > 6 the keys will be held down for the specified time before being released.
+  - If **timeDelay** >= 6 the keys will be held down for the specified time before being released.
 - **scanCode** – one or more scan codes of the keys to press. You can pass both individual keys and combinations.
 ```csharp
 using FastKeySimulator;
@@ -31,11 +31,10 @@ internal class Program
     private static async Task Main(string[] args)
     {
         FastKeySim fast=new FastKeySim();
-        Thread.Sleep(6000);
         // Press a single key
         await fast.KeyBoardClick(0,ScanCode.W);
         // Press a key combination (0,RShift + w)
-        await fast.KeyBoardClick(0,ScanCode.RShift,ScanCode.W);
+        await fast.KeyBoardClick(0,ScanCode.RShift,ScanCode.W");
         // Press multiple keys (0,Alt + RShift)
         await fast.KeyBoardClick(0,ScanCode.Alt,ScanCode.RShift);
     }
@@ -61,7 +60,6 @@ internal class Program
     private static void Main(string[] args)
     {
         FastKeySim fast=new FastKeySim();
-        Thread.Sleep(6000);
 
         // Left mouse click
         fast.MouseClick(Mouse.Left);
@@ -87,7 +85,6 @@ internal class Program
     private static async Task Main(string[] args)
     {
         FastKeySim fast=new FastKeySim();
-        Thread.Sleep(6000);
         // Scroll up 3 steps
         await fast.MouseScrollWheel(3, 10);
 
@@ -107,7 +104,6 @@ internal class Program
     private static void Main(string[] args)
     {
         FastKeySim fast=new FastKeySim();
-        Thread.Sleep(6000);
         // Move cursor to position (500, 300)
         fast.MouseSetCursorPos(500, 300);
 
@@ -134,7 +130,7 @@ internal class Program
         FastKeySim fast=new FastKeySim();
         Thread.Sleep(6000);
         //Moves 200px right, 100px down, in 20 steps, with 10ms delay.
-        await fast.MouseShowMouse(200, 100, 20, 10);
+        await fast.CursorMotion(200, 100, 20, 10);
     }
 }
 ```
