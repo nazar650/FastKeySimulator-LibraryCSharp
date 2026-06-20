@@ -19,7 +19,7 @@ namespace FastKeySimulator.Keystrokes.Keyboard.Domain.Click
             {
                 keyboardDown[i].type = 1;
                 keyboardDown[i].U.ki.wScan = name[i];
-                keyboardDown[i].U.ki.dwFlags = DwFlagsKeyBoard.KEYEVENTF_SCANCODE | DwFlagsKeyBoard.KEYEVENTF_EXTENDEDKEY;
+                keyboardDown[i].U.ki.dwFlags = DwFlagsKeyBoard.KEYEVENTF_SCANCODE;
             }
             if (timeDelay >= 5.5)
             {
@@ -42,7 +42,7 @@ namespace FastKeySimulator.Keystrokes.Keyboard.Domain.Click
             {
                 keyboardUp[i].type = 1;
                 keyboardUp[i].U.ki.wScan = name[i];
-                keyboardUp[i].U.ki.dwFlags = DwFlagsKeyBoard.KEYEVENTF_SCANCODE | DwFlagsKeyBoard.KEYEVENTF_KEYUP | DwFlagsKeyBoard.KEYEVENTF_EXTENDEDKEY;
+                keyboardUp[i].U.ki.dwFlags = DwFlagsKeyBoard.KEYEVENTF_SCANCODE | DwFlagsKeyBoard.KEYEVENTF_KEYUP;
             }
             SendInput((uint)keyboardUp.Length, keyboardUp, Marshal.SizeOf(typeof(INPUT)));
         }
