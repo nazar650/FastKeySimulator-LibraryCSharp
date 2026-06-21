@@ -75,9 +75,9 @@ internal class Program
 ```
 ### How to use **MouseScrollWheel(int count, int timeDelay)**
 - **count** — Number of scroll steps
-   - Positive value → scroll up
-   - Negative value → scroll down
-- **timeDelay** — Delay in milliseconds between scroll steps
+   - Positive value -> scroll up
+   - Negative value -> scroll down
+- **timeDelay** - Delay in milliseconds between scroll steps
 ```csharp
 using FastKeySimulator;
 internal class Program
@@ -95,8 +95,8 @@ internal class Program
 ```
 ###  How to use  **MouseSetCursorPos(int x, int y)**
 Moves the mouse cursor to an absolute screen position.
-- **x** — X coordinate (pixels)
-- **y** — Y coordinate (pixels)
+- **x** - X coordinate (pixels)
+- **y** - Y coordinate (pixels)
 ```csharp
 using FastKeySimulator;
 internal class Program
@@ -113,14 +113,14 @@ internal class Program
 }
 ```
 ###  How to use **CursorMotion(int x,int y,int steps,int timeDelay)**
-- **x**     — Total horizontal movement in pixels
+- **x**     - Total horizontal movement in pixels
   - Positive value of movement to the right
   - Negative value of movement to the left
-- **y**    — Total vertical movement in pixels
+- **y**    - Total vertical movement in pixels
    - Positive value of movement to the down
    - Negative value of movement to the up
-- **steps** — number of movement steps  
-- **timeDelay**  — Delay between steps in milliseconds
+- **steps** - number of movement steps  
+- **timeDelay**  - Delay between steps in milliseconds
 ```csharp
 using FastKeySimulator;
 internal class Program
