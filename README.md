@@ -42,7 +42,7 @@ internal class Program
 ```
 ## Mouse Simulation with FastKeySim
 
-- The FastKeySim class also provides powerful tools for simulating mouse input in your C# applications. It allows you to perform mouse clicks, scroll the mouse wheel, move the cursor to specific screen positions, and create smooth cursor movements — all with simple and high-level method calls.
+- The FastKeySim class also provides powerful tools for simulating mouse input in your C# applications. It allows you to perform mouse clicks, scroll the mouse wheel, move the cursor to specific screen positions, and create smooth cursor movements - all with simple and high-level method calls.
 
 - The **MouseClick()** method allows you to simulate left, right, and middle mouse button clicks. It automatically handles both the press and release events, so Windows recognizes the action as a real physical mouse click.
 
@@ -74,7 +74,7 @@ internal class Program
 }
 ```
 ### How to use **MouseScrollWheel(int count, int timeDelay)**
-- **count** — Number of scroll steps
+- **count** - Number of scroll steps
    - Positive value -> scroll up
    - Negative value -> scroll down
 - **timeDelay** - Delay in milliseconds between scroll steps
