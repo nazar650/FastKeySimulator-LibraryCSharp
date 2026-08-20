@@ -1,14 +1,16 @@
 ﻿using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 
 
 namespace FastKeySimulator.Keystrokes.Mouse.Domain.SetCursorPos
 {
-    
+
     internal class MouseSetCursorPos
     {
         [DllImport("user32.dll")]
         static extern uint SetCursorPos(int x, int y);
+        [DllImport("user32.dll")]
+        private static extern int GetSystemMetrics(int nIndex);
+
         public void SetCursorPosition(object x, object y)
         {
             if (x is int xValue && y is int yValue)
@@ -17,14 +19,10 @@ namespace FastKeySimulator.Keystrokes.Mouse.Domain.SetCursorPos
             }
             else if (x is float xFloat && y is float yFloat)
             {
-                Screen? screen = Screen.PrimaryScreen;
+                int width = GetSystemMetrics(0);
+                int height = GetSystemMetrics(1);
+                SetCursorPos((int)(width * xFloat), (int)(height * yFloat));
 
-                if (screen != null)
-                {
-                    int width = screen.Bounds.Width;
-                    int height = screen.Bounds.Height;
-                    SetCursorPos((int)(width * xFloat), (int)(height * yFloat));
-                }
             }
         }
     }
