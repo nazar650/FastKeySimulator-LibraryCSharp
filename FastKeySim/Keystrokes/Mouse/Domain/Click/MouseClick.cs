@@ -1,6 +1,7 @@
 ﻿using FastKeySimulator.Structure.DwFlags.Mouse;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using Windows.Devices.Lights;
 using static FastKeySimulator.Structure.Input.Input;
 
 namespace FastKeySimulator.Keystrokes.Mouse.Domain.Click
@@ -17,22 +18,34 @@ namespace FastKeySimulator.Keystrokes.Mouse.Domain.Click
             mouse[0].type = 0;
             mouse[1].type = 0;
         }
-        public void Click(string nameKey)
+        public void Click(string nameKey,bool ToHold)
         {
-            if (nameKey == "left")
+
+            if (nameKey.ToLower() == "left")
             {
                 mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_LEFTDOWN;
+                if (!ToHold)
+                {
                 mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_LEFTUP;
+
+                }
             }
-            if (nameKey == "right")
+            if (nameKey.ToLower() == "right")
             {
                 mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTDOWN;
-                mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTUP;
+                if (!ToHold)
+                {
+                    mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTUP;
+                }
             }
-            if (nameKey == "middle")
+            if (nameKey.ToLower() == "middle")
             {
                 mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEDOWN;
-                mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEUP;
+                if (!ToHold)
+                {
+
+                mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEUP;
+                }
             }
             else
             {
@@ -40,6 +53,16 @@ namespace FastKeySimulator.Keystrokes.Mouse.Domain.Click
             }
 
             SendInput((uint)mouse.Length, mouse, Marshal.SizeOf(typeof(INPUT)));
+        }
+        public void ClickRelease()
+        {
+            mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEUP;
+            SendInput((uint)mouse.Length, mouse, Marshal.SizeOf(typeof(INPUT)));
+            mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTUP;
+            SendInput((uint)mouse.Length, mouse, Marshal.SizeOf(typeof(INPUT)));
+            mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_LEFTUP;
+            SendInput((uint)mouse.Length, mouse, Marshal.SizeOf(typeof(INPUT)));
+
         }
     }
 

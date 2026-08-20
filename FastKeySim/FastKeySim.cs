@@ -22,10 +22,10 @@ namespace FastKeySimulator
 
         }
       
-        public void MouseClick(string name)
+        public void MouseClick(string name, bool toHold)
         {
 
-            mouseClick.Click(name);
+            mouseClick.Click(name, toHold);
 
         }
        
