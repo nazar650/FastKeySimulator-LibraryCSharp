@@ -1,4 +1,4 @@
-# FastKeySimulator V 1.2.2
+# FastKeySimulator V 1.2.3
 The **FastKeySimulator library** for C# allows programmatic control of the keyboard and mouse in Windows via the WinAPI. It uses the low-level **SendInput API**, which emulates physical key presses, mouse clicks, and cursor movements.
 Key Features
 
@@ -12,15 +12,17 @@ Key Features
 
 ### 2. Mouse
 - **Left, Right, and Middle clicks**
+- **Left, Right, and Middle button hold**
 - **Scroll wheel support**
 - **Move the cursor to absolute coordinates**
+- **Move the cursor by screen percentage**
 - **Smooth cursor movement**
 ---
 ## Keyboard Simulation with FastKeySim
 The **FastKeySim** class allows you to easily simulate keyboard and mouse input in your C# applications. You can press single keys or key combinations with a single method call, without worrying about low-level WinAPI details.The **KeyboardClick()** method allows you to simulate pressing single keys or key combinations on the keyboard with just one call. It handles both the press and release events, so Windows sees it as a real key press.
 
 ### How to use **KeyBoardClick(int timeDelay,params ushort[] scanCode)**
-- **timeDelay** – Delay in milliseconds before releasing the key.
+- **timeDelay** - Delay in milliseconds before releasing the key.
   - If **timeDelay** < 6 a single key/key combination is pressed.
   - If **timeDelay** >= 6 the keys will be held down for the specified time before being released.
 - **scanCode** – one or more scan codes of the keys to press. You can pass both individual keys and combinations.
@@ -42,17 +44,21 @@ internal class Program
 ```
 ## Mouse Simulation with FastKeySim
 
-- The FastKeySim class also provides powerful tools for simulating mouse input in your C# applications. It allows you to perform mouse clicks, scroll the mouse wheel, move the cursor to specific screen positions, and create smooth cursor movements - all with simple and high-level method calls.
+- The FastKeySim class also provides powerful tools for simulating mouse input in your C# applications. It allows you to perform mouse clicks, scroll the mouse wheel, move the cursor to specific screen positions, and create smooth cursor movements -
+  all with simple and high-level method calls.
 
-- The **MouseClick()** method allows you to simulate left, right, and middle mouse button clicks. It automatically handles both the press and release events, so Windows recognizes the action as a real physical mouse click.
+- The **MouseClick()** method allows you to simulate left, right, and middle mouse button clicks. It automatically handles both the press and release events, so Windows recognizes the action as a real physical mouse click.In addition, it supports holding down the left, right,
+  and middle mouse buttons until they are released.
+
+- The **MouseClickRelease()** method releases mouse buttons previously held down using **MouseClick()**.
 
 - The **MouseScrollWheel()** method allows you to simulate mouse wheel scrolling. You can scroll up or down by specifying the number of steps and control the scrolling speed using a time delay.
 
-- The **MouseSetCursorPos()** method allows you to instantly move the mouse cursor to any position on the screen using absolute coordinates.
+- The **MouseSetCursorPos()** method allows you to instantly move the mouse cursor to any position on the screen using absolute coordinates or screen percentages.
 
 - The **CursorMotion()** method allows you to smoothly move the mouse cursor by a specified number of pixels.
 
-### How to use **MouseClick(string name)**
+### How to use **MouseClick(string name,bool Hold)**
 ```csharp
 using FastKeySimulator;
 internal class Program
@@ -62,14 +68,19 @@ internal class Program
         FastKeySim fast=new FastKeySim();
 
         // Left mouse click
-        fast.MouseClick(Mouse.Left);
+        fast.MouseClick(Mouse.Left,false);
 
         // Right mouse click
-        fast.MouseClick(Mouse.Right);
+        fast.MouseClick(Mouse.Right,false);
 
         // Middle mouse click
-        fast.MouseClick(Mouse.Middle);
+        fast.MouseClick(Mouse.Middle,false);
 
+        // Hold the left mouse button
+        fast.MouseClick(Mouse.Left,true);
+        // Release the held mouse button
+        // Called from another part of the code
+        fast.MouseClickRelease();
     }
 }
 ```
@@ -93,10 +104,10 @@ internal class Program
     }
 }
 ```
-###  How to use  **MouseSetCursorPos(int x, int y)**
-Moves the mouse cursor to an absolute screen position.
-- **x** - X coordinate (pixels)
-- **y** - Y coordinate (pixels)
+###  How to use  **MouseSetCursorPos(object x, object y)**
+Moves the mouse cursor to an absolute position on the screen. Coordinates can be specified in pixels or as percentages of the screen size.
+- **x** - X coordinate (pixels) or percentage of screen width
+- **y** - Y coordinate (pixels) or percentage of screen height
 ```csharp
 using FastKeySimulator;
 internal class Program
@@ -109,6 +120,9 @@ internal class Program
 
         // Move cursor to top-left corner
         fast.MouseSetCursorPos(0, 0);
+
+        // Move cursor to the center of the screen (50%, 50%)
+        fast.MouseSetCursorPos(0.5f, 0.5f);
     }
 }
 ```
@@ -128,7 +142,7 @@ internal class Program
     private static async Task Main(string[] args)
     {
         FastKeySim fast=new FastKeySim();
-        Thread.Sleep(6000);
+
         //Moves 200px right, 100px down, in 20 steps, with 10ms delay.
         await fast.CursorMotion(200, 100, 20, 10);
     }
