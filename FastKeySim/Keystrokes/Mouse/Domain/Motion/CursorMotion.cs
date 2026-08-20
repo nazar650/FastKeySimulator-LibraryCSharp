@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using static FastKeySimulator.Structure.Input.Input;
 
-namespace FastKeySimulator.Keystrokes.Mouse.Domain.Show
+namespace FastKeySimulator.Keystrokes.Mouse.Domain.Motion
 {
     
     internal class CursorMotion

@@ -10,36 +10,71 @@ namespace FastKeySimulator.Keystrokes.Mouse.Domain.Click
     {
         [DllImport("user32.dll", SetLastError = true)]
         static extern uint SendInput(uint nInputs, [In] INPUT[] pInputs, int cbSize);
-
+        private string? heldButton;
         INPUT[] mouse = new INPUT[2];
         public MouseClick()
         {
             mouse[0].type = 0;
             mouse[1].type = 0;
         }
-        public void Click(string nameKey)
+        public void Click(string nameKey,bool Hold)
         {
+            mouse[0].U.mi.dwFlags = 0;
+            mouse[1].U.mi.dwFlags = 0;
             if (nameKey == "left")
             {
                 mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_LEFTDOWN;
+                if (!Hold)
+                {
                 mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_LEFTUP;
+
+                }
             }
-            if (nameKey == "right")
+            else if (nameKey == "right")
             {
                 mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTDOWN;
-                mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTUP;
+                if (!Hold)
+                {
+                    mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTUP;
+                }
             }
-            if (nameKey == "middle")
+            else if (nameKey == "middle")
             {
                 mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEDOWN;
-                mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEUP;
+                if (!Hold)
+                {
+                mouse[1].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEUP;
+                }
             }
             else
             {
                 return;
             }
+            if(!Hold)
+            {
+                SendInput((uint)mouse.Length, mouse, Marshal.SizeOf(typeof(INPUT)));
+            }
+            else
+            {
+                heldButton = nameKey;
+                SendInput(1, mouse, Marshal.SizeOf(typeof(INPUT)));
+            }
+        }
+        public void ClickRelease()
+        {
+            if (heldButton == null)
+                return;
 
-            SendInput((uint)mouse.Length, mouse, Marshal.SizeOf(typeof(INPUT)));
+            if (heldButton == "left")
+                mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_LEFTUP;
+            else if (heldButton == "right")
+                mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_RIGHTUP;
+            else if (heldButton == "middle")
+                mouse[0].U.mi.dwFlags = DwFlagsMouse.MOUSEEVENTF_MIDDLEUP;
+
+            SendInput(1, mouse, Marshal.SizeOf(typeof(INPUT)));
+
+            heldButton = null;
         }
     }
 

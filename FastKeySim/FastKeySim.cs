@@ -1,8 +1,8 @@
 ﻿using FastKeySimulator.Keystrokes.Keyboard.Domain.Click;
 using FastKeySimulator.Keystrokes.Mouse.Domain.Click;
+using FastKeySimulator.Keystrokes.Mouse.Domain.Motion;
 using FastKeySimulator.Keystrokes.Mouse.Domain.ScrollWheel;
 using FastKeySimulator.Keystrokes.Mouse.Domain.SetCursorPos;
-using FastKeySimulator.Keystrokes.Mouse.Domain.Show;
 
 namespace FastKeySimulator
 {
@@ -22,13 +22,16 @@ namespace FastKeySimulator
 
         }
       
-        public void MouseClick(string name)
+        public void MouseClick(string name, bool toHold)
         {
 
-            mouseClick.Click(name);
+            mouseClick.Click(name, toHold);
 
         }
-       
+       public void MouseClickRelease()
+        {
+            mouseClick.ClickRelease();
+        }
         public async Task MouseScrollWheel(int count, int timeDelay)
         {
 
@@ -36,7 +39,7 @@ namespace FastKeySimulator
 
         }
       
-        public void MouseSetCursorPos(int x, int y)
+        public void MouseSetCursorPos(object x, object y)
         {
             mouseSetCursorPos.SetCursorPosition(x, y);
         }

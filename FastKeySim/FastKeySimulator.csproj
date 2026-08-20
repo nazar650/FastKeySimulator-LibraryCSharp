@@ -4,7 +4,7 @@
     <TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
 
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
-
+	  <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -30,7 +30,7 @@ It uses the low-level SendInput API, which emulates physical key presses, mouse 
 
     <PackageTags>keyboard,sendinput,winapi,key-simulator,automation</PackageTags>
 
-    <PackageLicenseFile>License.txt</PackageLicenseFile>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>   
 
     <ApplicationIcon>FastKey.ico</ApplicationIcon>
 
@@ -51,7 +51,6 @@ It uses the low-level SendInput API, which emulates physical key presses, mouse 
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\..\Desktop\License.txt" Pack="true" PackagePath="\" />
     <None Include="..\..\..\..\..\Загрузки\FastKey.png" Pack="true" PackagePath="\" />
     <None Include="..\..\..\..\..\Загрузки\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
